@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import Friends from './components/FriendsComponents/Friends';
+import Friend from './components/FriendsComponents/Friend';
 
 import './App.css';
 
@@ -36,7 +36,7 @@ class App extends Component {
         }          
         {/* if friendsList is populated */}
         {this.state.friendsList && this.state.friendsList.map(friend =>{
-          return <Friends key={friend.id} friendData={friend} />
+          return <Friend key={friend.id} friendData={friend} />
         })}
       </div>
     );

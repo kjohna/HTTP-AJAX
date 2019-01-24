@@ -9,31 +9,31 @@ function FriendForm(props) {
         <Form onSubmit={props.addFriend}>
           <h2>Add New Friend!</h2>
           <FormGroup>
-            <Label for="friendName">New Friend Name</Label>
+            <Label for="name">New Friend Name</Label>
             <Input 
               type="text" 
-              name="friendName" 
-              id="friendName" 
+              name="name" 
+              id="name" 
               placeholder="New friend name"
-              value={props.friendFormData.friendName}
+              value={props.friendFormData.name}
               onChange={props.handleInput} 
             />
-            <Label for="friendAge">New Friend Age</Label>
+            <Label for="age">New Friend Age</Label>
             <Input
               type="number"
-              name="friendAge"
-              id="friendAge"
+              name="age"
+              id="age"
               placeholder="New friend age"
-              value={props.friendFormData.friendAge}
+              value={props.friendFormData.age}
               onChange={props.handleInput} 
             />
-            <Label for="friendEmail">New Friend Email</Label>
+            <Label for="email">New Friend Email</Label>
             <Input
               type="email"
-              name="friendEmail"
-              id="friendEmail"
+              name="email"
+              id="email"
               placeholder="New friend email"
-              value={props.friendFormData.friendEmail}
+              value={props.friendFormData.email}
               onChange={props.handleInput} 
             />
             <Button type="submit">Add New Friend!</Button>

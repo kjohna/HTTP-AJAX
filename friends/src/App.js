@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import API from './api';
 
 import Friend from './components/FriendsComponents/Friend';
 import FriendForm from './components/FriendsComponents/FriendForm';
 
 import './App.css';
+
+const emptyFriendFormData = {
+  name: '',
+  age: '',
+  email: ''
+};
 
 class App extends Component {
   constructor(props) {
@@ -12,16 +18,12 @@ class App extends Component {
     this.state = {
       friendsList: null,
       error: '',
-      friendFormData: {
-        friendName: '',
-        friendAge: '',
-        friendEmail: ''
-      }
+      friendFormData: emptyFriendFormData
     }
   };
 
   componentDidMount() {
-    axios.get("http://localhost:5000/friends")
+    API.get("")
       .then(res => {
         // console.log(res.data);
         this.setState({ 
@@ -50,6 +52,19 @@ class App extends Component {
   addFriend = e => {
     e.preventDefault();
     console.log("addFriend", e);
+    API.post("",this.state.friendFormData)
+      .then( res => {
+        console.log(res);
+        this.setState(
+          {
+            friendsList: res.data,
+            friendFormData: emptyFriendFormData
+          }
+        );
+      })
+      .catch( err => {
+        console.log(err);
+      })
   }
 
   render() {

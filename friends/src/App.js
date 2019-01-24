@@ -31,7 +31,7 @@ class App extends Component {
       <div className="App">
         {/* if error in axios request: */}
         {this.state.error && 
-          <h2>Error {this.state.error.status}: {this.state.error.request.responseURL} {this.state.error.statusText}
+          <h2>Error {this.state.error.status}: "{this.state.error.request.responseURL}" {this.state.error.statusText}
           </h2>
         }          
         {/* if friendsList is populated */}

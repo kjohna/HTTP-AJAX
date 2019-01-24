@@ -9,8 +9,7 @@ import './App.css';
 const emptyFriendFormData = {
   name: '',
   age: '',
-  email: '',
-  id: ''
+  email: ''
 };
 
 class App extends Component {
@@ -71,20 +70,25 @@ class App extends Component {
   }
 
   updateBtnHandle = (e, id) => {
-    // console.log("update friend", id);
+    console.log("update friend", id);
     // set isUpdating, friendFormData
     this.setState({
       isUpdating: true,
       friendFormData: this.state.friendsList.find( friend => friend.id === id)
     })
-    
   }
 
   updateFriend = e => {
     e.preventDefault();
     console.log("send PUT ", this.state.friendFormData.id);
     API.put(`/${this.state.friendFormData.id}`, this.state.friendFormData)
-      .then(res => console.log(res))
+      .then(res => {
+        this.setState({
+          isUpdating: false,
+          friendFormData: emptyFriendFormData,
+          friendsList: res.data
+        })
+      })
       .catch(err => console.log(err))
   }
 

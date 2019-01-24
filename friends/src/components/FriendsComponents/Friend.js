@@ -23,7 +23,11 @@ function Friend(props) {
             >
               Update
             </Button>
-            <Button size="sm" outline color="danger">
+            <Button 
+              size="sm" 
+              outline color="danger"
+              onClick={e => props.deleteFriend(e, props.friendData.id)}
+            >
               Delete
             </Button>
           </Col>

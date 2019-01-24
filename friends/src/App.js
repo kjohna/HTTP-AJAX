@@ -9,7 +9,8 @@ import './App.css';
 const emptyFriendFormData = {
   name: '',
   age: '',
-  email: ''
+  email: '' 
+  // don't include id, this will prevent new id from being created when a friend is added
 };
 
 class App extends Component {
@@ -80,12 +81,23 @@ class App extends Component {
 
   updateFriend = e => {
     e.preventDefault();
-    console.log("send PUT ", this.state.friendFormData.id);
+    // console.log("send PUT ", this.state.friendFormData.id);
     API.put(`/${this.state.friendFormData.id}`, this.state.friendFormData)
       .then(res => {
         this.setState({
           isUpdating: false,
           friendFormData: emptyFriendFormData,
+          friendsList: res.data
+        })
+      })
+      .catch(err => console.log(err))
+  }
+
+  deleteFriend = (e, id) => {
+    // console.log("send Delete ", id);
+    API.delete(`/${id}`)
+      .then(res => {
+        this.setState({
           friendsList: res.data
         })
       })
@@ -108,6 +120,7 @@ class App extends Component {
               key={friend.id} 
               friendData={friend} 
               updateBtnHandle={this.updateBtnHandle}
+              deleteFriend={this.deleteFriend}
             />
             )
           })}

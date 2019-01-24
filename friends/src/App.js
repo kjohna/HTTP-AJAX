@@ -2,13 +2,22 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import Friend from './components/FriendsComponents/Friend';
+import FriendForm from './components/FriendsComponents/FriendForm';
 
 import './App.css';
 
 class App extends Component {
-  state = {
-    friendsList: null,
-    error: ''
+  constructor(props) {
+    super(props);
+    this.state = {
+      friendsList: null,
+      error: '',
+      friendFormData: {
+        friendName: '',
+        friendAge: '',
+        friendEmail: ''
+      }
+    }
   };
 
   componentDidMount() {
@@ -26,6 +35,23 @@ class App extends Component {
       });
   }
 
+  handleInput = e => {
+    e.persist();
+    this.setState( prevState => {
+      return {
+        friendFormData: {
+          ...prevState.friendFormData,
+          [e.target.name]: [e.target.value]
+        }
+      }
+    });
+  }
+
+  addFriend = e => {
+    e.preventDefault();
+    console.log("addFriend", e);
+  }
+
   render() {
     return (
       <div className="App">
@@ -35,9 +61,15 @@ class App extends Component {
           </h2>
         }          
         {/* if friendsList is populated */}
-        {this.state.friendsList && this.state.friendsList.map(friend =>{
-          return <Friend key={friend.id} friendData={friend} />
-        })}
+        <div className="friend-list">
+          {this.state.friendsList && this.state.friendsList.map(friend =>{
+            return <Friend key={friend.id} friendData={friend} />
+          })}
+        </div>
+        <FriendForm 
+          handleInput={this.handleInput} 
+          friendFormData={this.state.friendFormData}
+          addFriend={this.addFriend} />
       </div>
     );
   }

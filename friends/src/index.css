@@ -16,6 +16,7 @@ code {
 #root {
   display: flex;
   justify-content: center;
-  background-color: rgba(0,255,0,.03);
+  background-color: rgba(0,255,255,.03);
+  padding: 50px 0;
 }
 

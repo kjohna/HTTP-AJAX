@@ -9,7 +9,8 @@ import './App.css';
 const emptyFriendFormData = {
   name: '',
   age: '',
-  email: ''
+  email: '',
+  id: ''
 };
 
 class App extends Component {
@@ -18,7 +19,8 @@ class App extends Component {
     this.state = {
       friendsList: null,
       error: '',
-      friendFormData: emptyFriendFormData
+      friendFormData: emptyFriendFormData,
+      isUpdating: false
     }
   };
 
@@ -39,11 +41,12 @@ class App extends Component {
 
   handleInput = e => {
     e.persist();
+    // console.log(this.state.friendFormData);
     this.setState( prevState => {
       return {
         friendFormData: {
           ...prevState.friendFormData,
-          [e.target.name]: [e.target.value]
+          [e.target.name]: e.target.value
         }
       }
     });
@@ -51,10 +54,10 @@ class App extends Component {
 
   addFriend = e => {
     e.preventDefault();
-    console.log("addFriend", e);
+    // console.log("addFriend", e);
     API.post("",this.state.friendFormData)
       .then( res => {
-        console.log(res);
+        // console.log(res);
         this.setState(
           {
             friendsList: res.data,
@@ -65,6 +68,24 @@ class App extends Component {
       .catch( err => {
         console.log(err);
       })
+  }
+
+  updateBtnHandle = (e, id) => {
+    // console.log("update friend", id);
+    // set isUpdating, friendFormData
+    this.setState({
+      isUpdating: true,
+      friendFormData: this.state.friendsList.find( friend => friend.id === id)
+    })
+    
+  }
+
+  updateFriend = e => {
+    e.preventDefault();
+    console.log("send PUT ", this.state.friendFormData.id);
+    API.put(`/${this.state.friendFormData.id}`, this.state.friendFormData)
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
   }
 
   render() {
@@ -78,13 +99,22 @@ class App extends Component {
         {/* if friendsList is populated */}
         <div className="friend-list">
           {this.state.friendsList && this.state.friendsList.map(friend =>{
-            return <Friend key={friend.id} friendData={friend} />
+            return (
+            <Friend 
+              key={friend.id} 
+              friendData={friend} 
+              updateBtnHandle={this.updateBtnHandle}
+            />
+            )
           })}
         </div>
         <FriendForm 
           handleInput={this.handleInput} 
           friendFormData={this.state.friendFormData}
-          addFriend={this.addFriend} />
+          addFriend={this.addFriend}
+          updateFriend={this.updateFriend}
+          isUpdating={this.state.isUpdating}
+        />
       </div>
     );
   }

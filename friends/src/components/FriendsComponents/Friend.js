@@ -14,9 +14,19 @@ function Friend(props) {
           <CardText>
             email: {props.friendData.email}   
           </CardText>
-          <Button size="sm" outline color="danger">
-            Delete
-          </Button>
+          <Col sm={{size:'auto', offset:2}}>
+            <Button 
+              size="sm" 
+              outline 
+              color="primary"
+              onClick={e => props.updateBtnHandle(e, props.friendData.id)}
+            >
+              Update
+            </Button>
+            <Button size="sm" outline color="danger">
+              Delete
+            </Button>
+          </Col>
         </Card>
       </Col>
     </Row>

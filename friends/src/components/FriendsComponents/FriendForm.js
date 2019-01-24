@@ -5,38 +5,38 @@ function FriendForm(props) {
 
   return (
     <Container>
-      <Col sm="4">
-        <Form onSubmit={props.addFriend}>
-          <h2>Add New Friend!</h2>
+      <Col sm={{size:4, offset:2}}>
+        <Form onSubmit={props.isUpdating ? props.updateFriend : props.addFriend}>
+          <h2>{props.isUpdating ? `Update Friend!` : `Add New Friend!`}</h2>
           <FormGroup>
-            <Label for="name">New Friend Name</Label>
+            <Label for="name">Friend Name</Label>
             <Input 
               type="text" 
               name="name" 
               id="name" 
-              placeholder="New friend name"
+              placeholder="Friend name"
               value={props.friendFormData.name}
               onChange={props.handleInput} 
             />
-            <Label for="age">New Friend Age</Label>
+            <Label for="age">Friend Age</Label>
             <Input
               type="number"
               name="age"
               id="age"
-              placeholder="New friend age"
+              placeholder="Friend age"
               value={props.friendFormData.age}
               onChange={props.handleInput} 
             />
-            <Label for="email">New Friend Email</Label>
+            <Label for="email">Friend Email</Label>
             <Input
               type="email"
               name="email"
               id="email"
-              placeholder="New friend email"
+              placeholder="Friend email"
               value={props.friendFormData.email}
               onChange={props.handleInput} 
             />
-            <Button type="submit">Add New Friend!</Button>
+            <Button type="submit">{props.isUpdating ? `Update Friend!` : `Add New Friend!`}</Button>
           </FormGroup>
         </Form>
       </Col>

@@ -1,19 +1,39 @@
 import React from 'react';
-
-import './Friends.css';
+import { Card, Button, CardHeader, CardText, Row, Col } from 'reactstrap';
 
 function Friend(props) {
-  console.log(props);
+  // console.log(props);
   return(
-    <div className="friends-container">
-      <div className="friend">
-        <h2>{props.friendData.name}</h2>
-        <div className="friend-info">
-          <p>age: {props.friendData.age}</p>
-          <p>email: {props.friendData.email}</p>        
-        </div>
-      </div>
-    </div>
+    <Row>
+      <Col lg="12">
+        <Card body>
+          <CardHeader>{props.friendData.name}</CardHeader>
+          <CardText>
+            age: {props.friendData.age}
+          </CardText>
+          <CardText>
+            email: {props.friendData.email}   
+          </CardText>
+          <Col sm={{size:'auto', offset:2}}>
+            <Button 
+              size="sm" 
+              outline 
+              color="primary"
+              onClick={e => props.updateBtnHandle(e, props.friendData.id)}
+            >
+              Update
+            </Button>
+            <Button 
+              size="sm" 
+              outline color="danger"
+              onClick={e => props.deleteFriend(e, props.friendData.id)}
+            >
+              Delete
+            </Button>
+          </Col>
+        </Card>
+      </Col>
+    </Row>
   );
 }
 

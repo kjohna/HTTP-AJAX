@@ -1,5 +1,7 @@
-.App {
-  background-color: lightgray;
+.friend-list {
   display: flex;
+  justify-content: center;
+  padding: 0 2em;
   flex-wrap: wrap;
+  width: 80%;
 }
